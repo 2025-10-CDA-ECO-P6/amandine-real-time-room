@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: web-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./apps/web-api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "3000"
+
+  - type: web
+    name: web-app
+    runtime: docker
+    plan: free
+    dockerfilePath: ./apps/web-app/Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: "80"
