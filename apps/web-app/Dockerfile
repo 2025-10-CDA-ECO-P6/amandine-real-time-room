@@ -21,16 +21,18 @@ RUN pnpm build
 # -------------------------------
 # Prod stage avec NGINX
 # -------------------------------
-FROM nginx:alpine
+FROM nginx:alpine AS production
 
-# Copier le build React
-COPY --from=build /app/dist /usr/share/nginx/html
+# Supprimer la config par défaut
+RUN rm -rf /etc/nginx/conf.d/default.conf
 
-# Copier le template NGINX
-COPY nginx.conf /etc/nginx/templates/nginx.conf.template
+# Copie config Nginx personnalisée
+COPY web/nginx.conf /etc/nginx/templates/default.conf.template
+
+# Copier les fichiers build React
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
-# Substitution de la variable et lancement NGINX
-CMD envsubst '$API_URL' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf \
-    && nginx -g 'daemon off;'
+# Démarre Nginx en premier plan pour que le conteneur reste actif
+CMD ["nginx", "-g", "daemon off;"]
