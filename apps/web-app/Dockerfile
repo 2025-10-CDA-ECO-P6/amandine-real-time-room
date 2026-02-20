@@ -6,11 +6,11 @@ WORKDIR /app
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY package.json apps/web-app/package.json
-RUN corepack enable
-RUN pnpm install --filter web-app... --frozen-lockfile
+RUN corepack enable && pnpm install \
 
 COPY . .
-RUN pnpm --filter web-app build
+
+RUN pnpm build
 
 # -------------------------------
 # Prod stage avec NGINX
