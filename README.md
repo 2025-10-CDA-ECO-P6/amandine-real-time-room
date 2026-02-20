@@ -35,7 +35,7 @@ Le projet inclut notamment :
 | J1 — Monorepo + Docker + Render + `/health` | ✅ Fait | 2 services déployés sur Render |
 | J2 — UI mobile-first SCSS/BEM + asymétrie | ✅ Fait | Grid desktop asymétrique, BEM strict |
 | J2-3 — Socket.IO rooms + sécurité + Swagger | 🟡 Partiel | Socket.IO ✅, Swagger ❌ à faire |
-| J3 — CI ESLint + docs complètes | ❌ À faire | GitHub Actions, CONTRIBUTING.md, VEILLE.md |
+| J3 — CI ESLint + docs complètes | 🟡 Partiel | GitHub Actions, CONTRIBUTING.md, VEILLE.md |
 
 ---
 
@@ -287,22 +287,10 @@ Sur desktop, le layout passe sur CSS Grid avec `grid-template-columns: 200px 1fr
 
 ---
 
-## 🖼️ Maquettes
-
-<table>
-  <tr>
-    <td><img src="TODO"/></td>
-  </tr>
-</table>
-
----
-
-## ✅ Ce qui reste à faire (J3)
+## ✅ Ce qui reste à faire
 
 - [ ] **Swagger / OpenAPI** : documenter la route `/health` et les événements Socket.IO sur `/api-docs`
 - [ ] **GitHub Actions CI** : workflow ESLint sur chaque push/PR
-- [ ] **CONTRIBUTING.md** : conventions BEM, workflow Git, scripts
-- [ ] **VEILLE.md** : veille structurée "Pourquoi ?" sur les choix techniques
 
 ---
 
