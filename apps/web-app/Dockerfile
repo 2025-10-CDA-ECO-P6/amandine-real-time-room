@@ -26,11 +26,11 @@ FROM nginx:alpine AS production
 # Supprimer la config par défaut
 RUN rm -rf /etc/nginx/conf.d/default.conf
 
-# Copie config Nginx personnalisée
-COPY web/nginx.conf /etc/nginx/templates/default.conf.template
+# Copier config Nginx personnalisée
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-# Copier les fichiers build React
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copier les fichiers build React depuis l'étape de build
+COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
