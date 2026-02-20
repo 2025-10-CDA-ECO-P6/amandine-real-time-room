@@ -4,12 +4,18 @@
 FROM node:lts-alpine AS build
 WORKDIR /app
 
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
-COPY package.json apps/web-app/package.json
-RUN corepack enable && pnpm install \
+# Copier uniquement les fichiers nécessaires pour installer les dépendances
+COPY ../../pnpm-lock.yaml ../../pnpm-workspace.yaml ../../package.json ./
+COPY package.json ./package.json
 
+# Activer corepack et installer PNPM
+RUN corepack enable
+RUN pnpm install --frozen-lockfile
+
+# Copier le reste des sources du front
 COPY . .
 
+# Build de l'application front
 RUN pnpm build
 
 # -------------------------------
@@ -17,14 +23,13 @@ RUN pnpm build
 # -------------------------------
 FROM nginx:alpine
 
-# Copie du build React
-COPY --from=build /app/apps/web-app/dist /usr/share/nginx/html
+# Copier le build React
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copie du template NGINX
-COPY apps/web-app/nginx.conf /etc/nginx/templates/nginx.conf.template
+# Copier le template NGINX
+COPY nginx.conf /etc/nginx/templates/nginx.conf.template
 
-# Valeur par défaut pour dev local
-ENV API_URL=http://localhost:3030
+EXPOSE 80
 
 # Substitution de la variable et lancement NGINX
 CMD envsubst '$API_URL' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf \
