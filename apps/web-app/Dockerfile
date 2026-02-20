@@ -4,19 +4,19 @@
 FROM node:lts-alpine AS build
 WORKDIR /app
 
-# Copier uniquement les fichiers nécessaires pour installer les dépendances
-COPY ../../pnpm-lock.yaml ../../pnpm-workspace.yaml ../../package.json ./
-COPY package.json ./package.json
+# Copier uniquement les fichiers nécessaires pour PNPM
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/web-app/package.json ./apps/web-app/package.json
 
-# Activer corepack et installer PNPM
+# Activer Corepack et installer les dépendances
 RUN corepack enable
 RUN pnpm install --frozen-lockfile
 
 # Copier le reste des sources du front
-COPY . .
+COPY apps/web-app ./apps/web-app
 
 # Build de l'application front
-RUN pnpm build
+RUN pnpm --filter web-app build
 
 # -------------------------------
 # Prod stage avec NGINX
@@ -27,12 +27,12 @@ FROM nginx:alpine AS production
 RUN rm -rf /etc/nginx/conf.d/default.conf
 
 # Copier config Nginx personnalisée
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+COPY apps/web-app/nginx.conf /etc/nginx/templates/default.conf.template
 
 # Copier les fichiers build React depuis l'étape de build
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/apps/web-app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
-# Démarre Nginx en premier plan pour que le conteneur reste actif
+# Démarre Nginx en premier plan
 CMD ["nginx", "-g", "daemon off;"]
