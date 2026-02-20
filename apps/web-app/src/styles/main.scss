@@ -1,3 +1,7 @@
+@use 'variables' as *;
+@use 'components/join';
+@use 'components/chat';
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +10,9 @@
 
 body {
   min-height: 100vh;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, sans-serif;
+  background: $bg;
+  color: $text;
   -webkit-font-smoothing: antialiased;
 }
 

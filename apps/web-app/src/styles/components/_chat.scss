@@ -1,0 +1,183 @@
+@use '../variables' as *;
+
+.chat {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg;
+  color: $text;
+
+  @media (min-width: $bp) {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "sidebar header"
+      "sidebar messages"
+      "sidebar composer";
+  }
+
+  &__sidebar {
+    display: none;
+
+    @media (min-width: $bp) {
+      display: flex;
+      flex-direction: column;
+      grid-area: sidebar;
+      background: $surface;
+      border-right: 1px solid $border;
+      padding: 1.5rem 1rem;
+      gap: 0.5rem;
+    }
+  }
+
+  &__sidebar-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $muted;
+  }
+
+  &__pseudo {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $accent;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: $surface;
+    border-bottom: 1px solid $border;
+
+    @media (min-width: $bp) { grid-area: header; }
+  }
+
+  &__room {
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 1em;
+      background: $accent;
+      border-radius: 2px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+  }
+
+  &__leave {
+    padding: 0.3rem 0.75rem;
+    background: transparent;
+    border: 1px solid $border;
+    border-radius: 6px;
+    color: $muted;
+    font-size: 0.8rem;
+    cursor: pointer;
+
+    &:hover { border-color: #ff5f5f; color: #ff5f5f; }
+  }
+
+  &__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @media (min-width: $bp) { grid-area: messages; }
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: $border; border-radius: 2px; }
+  }
+
+  &__system {
+    text-align: center;
+    font-size: 0.75rem;
+    color: $muted;
+    font-style: italic;
+  }
+
+  &__msg {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    max-width: 70%;
+    gap: 0.2rem;
+
+    &--own {
+      align-self: flex-end;
+
+      .chat__bubble { background: $own; border-color: transparent; }
+      .chat__msg-pseudo { display: none; }
+    }
+  }
+
+  &__msg-pseudo {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: $accent;
+    padding: 0 0.25rem;
+  }
+
+  &__bubble {
+    padding: 0.5rem 0.875rem;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  &__time {
+    font-size: 0.7rem;
+    color: $muted;
+    padding: 0 0.25rem;
+  }
+
+  &__composer {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    background: $surface;
+    border-top: 1px solid $border;
+
+    @media (min-width: $bp) { grid-area: composer; }
+  }
+
+  &__input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: 20px;
+    color: $text;
+    font-size: 0.9rem;
+    outline: none;
+
+    &:focus { border-color: $accent; }
+    &::placeholder { color: $muted; opacity: 0.6; }
+  }
+
+  &__send {
+    width: 38px;
+    height: 38px;
+    background: $accent;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover { opacity: 0.85; }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+  }
+}

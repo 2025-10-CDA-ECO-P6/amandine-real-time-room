@@ -1,0 +1,75 @@
+@use '../variables' as *;
+
+.join {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg;
+  padding: 1rem;
+
+  &__card {
+    width: 100%;
+    max-width: 400px;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    @media (min-width: $bp) {
+      margin-left: 12%; // asymétrie desktop
+    }
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text;
+    margin-bottom: 0.25rem;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: $muted;
+    margin-bottom: 0.5rem;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__input {
+    padding: 0.5rem 0.875rem;
+    background: darken($surface, 3%);
+    border: 1px solid $border;
+    border-radius: 6px;
+    color: $text;
+    font-size: 1rem;
+    outline: none;
+
+    &:focus { border-color: $accent; }
+    &::placeholder { color: $muted; opacity: 0.6; }
+  }
+
+  &__btn {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: $accent;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover { opacity: 0.85; }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+  }
+}
