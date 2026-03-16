@@ -25,7 +25,7 @@ export function JoinRoom({ onJoin }: Props) {
                 <input
                     id="pseudo"
                     className="join__input"
-                    placeholder="ex: amandine"
+                    placeholder="ex: Amandine"
                     value={pseudo}
                     maxLength={20}
                     onChange={(e) => setPseudo(e.target.value)}

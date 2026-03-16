@@ -190,6 +190,7 @@ Chaque stage est mis en cache par Docker : si les fichiers sources n'ont pas cha
 # ── Front ──────────────────────────────────────────────
 docker build -f apps/web-app/Dockerfile -t image-app-real-time-room .
 docker run -d -p 80:80 --name app-real-time-room image-app-real-time-room
+docker start app-real-time-room
 docker stop app-real-time-room
 
 # ── Back ───────────────────────────────────────────────

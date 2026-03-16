@@ -9,7 +9,7 @@ const httpServer = createServer(app); // Socket.IO a besoin du serveur HTTP nati
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || "*",
+    origin: process.env.CLIENT_URL || "https://web-app-2d0i.onrender.com",
     methods: ["GET", "POST"],
   },
 });
