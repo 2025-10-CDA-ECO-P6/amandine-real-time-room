@@ -15,7 +15,9 @@ RUN pnpm install --frozen-lockfile
 # Copier le reste des sources du front
 COPY apps/web-app ./apps/web-app
 
+# Récupération de la variable d'env extérieure du docker (pc en local, render en ligne)
 ARG VITE_API_URL
+# Injection de cette variable à l'intérieur du docker pour le build de vite
 ENV VITE_API_URL=$VITE_API_URL
 
 # Build de l'application front

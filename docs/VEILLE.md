@@ -121,7 +121,7 @@ Helmet est un middleware Express qui injecte automatiquement une dizaine de head
 
 Une seule ligne de code (`app.use(helmet())`) active tout ça — pas de raison de s'en passer.
 
-**Preuve :** `curl -I https://web-api-cgfe.onrender.com/health` affiche ces headers dans la réponse.
+**Preuve :** `curl -I https://monapiback/health` affiche ces headers dans la réponse.
 
 ---
 

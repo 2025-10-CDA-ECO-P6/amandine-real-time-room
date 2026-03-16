@@ -3,9 +3,9 @@
 ## 🔗 Démo
 Le projet est en cours de développement.
 
-- **Web App (Front React)** : [https://web-app-2d0i.onrender.com](https://web-app-2d0i.onrender.com)
-- **Web API (Backend Express)** : [https://web-api-cgfe.onrender.com](https://web-api-cgfe.onrender.com)
-- **Health check** : [https://web-api-cgfe.onrender.com/health](https://web-api-cgfe.onrender.com/health)
+- [**Web App (Front React)**](https://web-app-5smz.onrender.com/)
+- [**Web API (Backend Express)**](https://web-api-5acp.onrender.com)
+- [**Health check**](https://web-api-5acp.onrender.com/health)
 
 ---
 
@@ -255,7 +255,7 @@ Helmet injecte automatiquement des headers HTTP de sécurité sur chaque répons
 - `X-Content-Type-Options` : empêche le MIME sniffing
 - `Content-Security-Policy` : restreint les sources de contenu autorisées
 
-**Preuve** : `curl -I https://web-api-cgfe.onrender.com/health` — les headers apparaissent dans la réponse.
+**Preuve** : `curl -I https://web-api-5acp.onrender.com/health` — les headers apparaissent dans la réponse.
 
 ### Rate Limiting — Pourquoi ?
 
