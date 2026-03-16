@@ -4,7 +4,7 @@ import { JoinRoom } from './JoinRoom'
 import { ChatRoom } from './ChatRoom'
 import './styles/main.scss'
 
-const SOCKET_URL = import.meta.env.API_URL ?? 'back_api_url'
+const SOCKET_URL = import.meta.env //.VITE_API_URL ?? 'back_api_url'
 
 export default function App() {
     const [socket, setSocket] = useState<Socket | null>(null)
@@ -14,7 +14,8 @@ export default function App() {
     useEffect(() => () => { socket?.disconnect() }, [socket])
 
     function handleJoin(p: string, r: string) {
-        const s = io(SOCKET_URL, { transports: ['websocket', 'polling'] })
+        console.log(SOCKET_URL)
+        const s = io(SOCKET_URL.VITE_API_URL, { transports: ['websocket', 'polling'] })
         s.on('connect', () => {
             s.emit('join-room', { pseudo: p, room: r })
             setPseudo(p)
