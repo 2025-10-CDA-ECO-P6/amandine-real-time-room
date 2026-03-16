@@ -10,8 +10,7 @@ services:
       - key: PORT
         value: "3030"
 
-staticSites:
-  - type: static
+  - type: web
     name: web-app
     runtime: docker
     plan: free
