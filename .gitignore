@@ -1,2 +1,5 @@
 .idea
 node_modules
+/apps/web-app/.env
+# Ignore all .env:
+**/.env
