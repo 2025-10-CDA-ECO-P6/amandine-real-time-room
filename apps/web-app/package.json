@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run --dir src",
+    "test:watch": "vitest --watch --dir src"
   },
   "dependencies": {
     "react": "^19.2.0",
