@@ -4,7 +4,7 @@ import { JoinRoom } from './JoinRoom'
 import { ChatRoom } from './ChatRoom'
 import './styles/main.scss'
 
-const SOCKET_URL = import.meta.env.VITE_API_URL ?? ''
+const SOCKET_URL = import.meta.env.API_URL ?? 'back_api_url'
 
 export default function App() {
     const [socket, setSocket] = useState<Socket | null>(null)

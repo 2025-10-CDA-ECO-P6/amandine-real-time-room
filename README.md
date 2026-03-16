@@ -166,7 +166,7 @@ Vite proxifie `/socket.io` vers le back — pas de CORS en développement.
 | Variable | Où | Valeur par défaut | Description |
 |----------|----|-------------------|-------------|
 | `PORT` | web-api | `3000` | Port du serveur Express |
-| `VITE_API_URL` | web-app | `''` (vide) | URL du back en prod (vide = même domaine via Nginx) |
+| `API_URL` | web-app | `''` (vide) | URL du back en prod (vide = même domaine via Nginx) |
 
 ---
 
