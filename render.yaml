@@ -10,6 +10,7 @@ services:
       - key: PORT
         value: "3030"
 
+staticSites:
   - type: static
     name: web-app
     runtime: docker
