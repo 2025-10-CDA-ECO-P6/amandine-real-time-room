@@ -30,14 +30,21 @@ export function ChatRoom({ socket, pseudo, room, onLeave }: Props) {
         const add = (content: string, system = false, msgPseudo?: string, own = false) => {
             setMessages((prev) => [
                 ...prev,
-                { id: crypto.randomUUID(), content, system, pseudo: msgPseudo, own, time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) },
+                {
+                    id: crypto.randomUUID(),
+                    content,
+                    system,
+                    pseudo: msgPseudo,
+                    own,
+                    time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+                },
             ])
         }
 
         socket.on('new-message', (d: { pseudo: string; content: string }) =>
             add(d.content, false, d.pseudo, d.pseudo === pseudo))
-        socket.on('user-joined', (d: { pseudo: string }) => add(`${d.pseudo} a rejoint la room.`, true))
-        socket.on('user-left', (d: { pseudo: string }) => add(`${d.pseudo} a quitté la room.`, true))
+        socket.on('user-joined', (d: { pseudo: string }) => add(`${d.pseudo} est là !`, true))
+        socket.on('user-left', (d: { pseudo: string }) => add(`${d.pseudo} est parti.`, true))
 
         return () => { socket.off('new-message').off('user-joined').off('user-left') }
     }, [socket, pseudo])
@@ -51,41 +58,46 @@ export function ChatRoom({ socket, pseudo, room, onLeave }: Props) {
 
     return (
         <div className="chat">
-            <aside className="chat__sidebar">
-                <p className="chat__sidebar-title">Connecté en tant que</p>
-                <p className="chat__pseudo">{pseudo}</p>
+            {/*ZONE JEU :*/}
+            <aside className="chat__game">
+                <div style={{ textAlign: 'center' }}>
+                    <span style={{ fontSize: '5rem', display: 'block' }}>🎮</span>
+                    <h2 style={{ fontSize: '2rem', color: '#555' }}>ZONE DE JEU</h2>
+                    <p>Le futur jeu s'affichera ici en grand !</p>
+                </div>
             </aside>
 
-            <header className="chat__header">
-                <span className="chat__room">{room}</span>
-                <button className="chat__leave" onClick={onLeave}>Quitter</button>
-            </header>
+            {/*ZONE CHAT :*/}
+            <div className="chat__container">
+                <header className="chat__header">
+                    <span>Salon : {room}</span>
+                    <button className="chat__leave" onClick={onLeave}>Quitter</button>
+                </header>
 
-            <main className="chat__messages">
-                {messages.map((msg) =>
-                    msg.system ? (
-                        <p key={msg.id} className="chat__system">{msg.content}</p>
-                    ) : (
-                        <div key={msg.id} className={`chat__msg${msg.own ? ' chat__msg--own' : ''}`}>
-                            {!msg.own && <span className="chat__msg-pseudo">{msg.pseudo}</span>}
-                            <span className="chat__bubble">{msg.content}</span>
-                            <span className="chat__time">{msg.time}</span>
-                        </div>
-                    )
-                )}
-                <div ref={bottomRef} />
-            </main>
+                <main className="chat__messages">
+                    {messages.map((msg) => (
+                        msg.system ? (
+                            <p key={msg.id} className="chat__system">{msg.content}</p>
+                        ) : (
+                            <div key={msg.id} className={`chat__msg${msg.own ? ' chat__msg--own' : ''}`}>
+                                {!msg.own && <span className="chat__msg-pseudo">{msg.pseudo}</span>}
+                                <span className="chat__bubble">{msg.content}</span>
+                            </div>
+                        )
+                    ))}
+                    <div ref={bottomRef} />
+                </main>
 
-            <form className="chat__composer" onSubmit={handleSend}>
-                <input
-                    className="chat__input"
-                    placeholder="Écris un message..."
-                    value={input}
-                    maxLength={500}
-                    onChange={(e) => setInput(e.target.value)}
-                />
-                <button className="chat__send" disabled={!input.trim()}>↑</button>
-            </form>
+                <form className="chat__composer" onSubmit={handleSend}>
+                    <input
+                        className="chat__input"
+                        placeholder="Message..."
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                    />
+                    <button className="chat__send" disabled={!input.trim()}>OK</button>
+                </form>
+            </div>
         </div>
     )
 }

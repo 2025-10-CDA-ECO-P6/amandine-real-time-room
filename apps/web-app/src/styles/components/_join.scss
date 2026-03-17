@@ -5,71 +5,68 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $bg;
-  padding: 1rem;
+  background: #B9F3E4;
+  padding: 20px;
 
   &__card {
+    background: white;
+    border-radius: 40px;
+    padding: 2.5rem;
     width: 100%;
-    max-width: 400px;
-    background: $surface;
-    border: 1px solid $border;
-    border-radius: 12px;
-    padding: 2rem;
+    max-width: 420px;
+    box-shadow: 0 15px 0 rgba(0,0,0,0.05);
+    border: 8px solid white;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-
-    @media (min-width: $bp) {
-      margin-left: 12%; // asymétrie desktop
-    }
+    gap: 1rem;
   }
 
   &__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $text;
-    margin-bottom: 0.25rem;
+    font-size: 2.2rem;
+    color: #FF85A2;
+    text-align: center;
+    font-weight: 900;
   }
 
   &__subtitle {
-    font-size: 0.875rem;
-    color: $muted;
-    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
   }
 
   &__label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: $muted;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 1rem;
+    color: #A2D2FF;
+    font-weight: bold;
+    margin-bottom: -5px;
   }
 
   &__input {
-    padding: 0.5rem 0.875rem;
-    background: darken($surface, 3%);
-    border: 1px solid $border;
-    border-radius: 6px;
-    color: $text;
-    font-size: 1rem;
-    outline: none;
+    border-radius: 20px;
+    border: 3px solid #F0F0F0;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background: #FAFAFA;
 
-    &:focus { border-color: $accent; }
-    &::placeholder { color: $muted; opacity: 0.6; }
+    &:focus {
+      border-color: #FFCF81;
+      outline: none;
+    }
   }
 
   &__btn {
-    margin-top: 0.5rem;
-    padding: 0.6rem 1rem;
-    background: $accent;
-    color: #fff;
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border-radius: 25px;
     border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
+    background: #FF85A2;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 900;
     cursor: pointer;
+    box-shadow: 0 6px 0 darken(#FF85A2, 10%);
 
-    &:hover { opacity: 0.85; }
-    &:disabled { opacity: 0.4; cursor: not-allowed; }
+    &:hover { transform: translateY(-2px); }
+    &:active { transform: translateY(4px); box-shadow: none; }
   }
 }

@@ -1,183 +1,153 @@
 @use '../variables' as *;
 
 .chat {
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  background: $bg;
-  color: $text;
+  background: linear-gradient(180deg, #aee1ff, #fdf6ff);
+  font-family: "Fredoka", "Comic Sans MS", sans-serif;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
 
   @media (min-width: $bp) {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas:
-      "sidebar header"
-      "sidebar messages"
-      "sidebar composer";
+    flex-direction: row !important;
+    gap: 15px;
+    padding: 15px;
   }
 
-  &__sidebar {
-    display: none;
+  // ZONE JEU :
+  &__game {
+    flex: 1 !important;
+    background: linear-gradient(135deg, #ffd6e0, #caffbf);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.05);
+    border: 6px solid white;
+  }
+
+  // ZONE CHAT
+  &__container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 4px solid #ffd1dc;
+    flex-shrink: 0;
 
     @media (min-width: $bp) {
-      display: flex;
-      flex-direction: column;
-      grid-area: sidebar;
-      background: $surface;
-      border-right: 1px solid $border;
-      padding: 1.5rem 1rem;
-      gap: 0.5rem;
+      width: 260px !important;
+      height: 100%;
     }
-  }
 
-  &__sidebar-title {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: $muted;
-  }
-
-  &__pseudo {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: $accent;
+    @media (max-width: $bp) {
+      height: 25vh;
+      width: 100%;
+      margin-top: 10px;
+    }
   }
 
   &__header {
+    padding: 10px;
+    background: #bdb2ff;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: bold;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.25rem;
-    background: $surface;
-    border-bottom: 1px solid $border;
-
-    @media (min-width: $bp) { grid-area: header; }
+    align-items: center;
   }
 
-  &__room {
-    font-size: 1.1rem;
-    font-weight: 700;
-
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 5px;
-      height: 1em;
-      background: $accent;
-      border-radius: 2px;
-      margin-right: 0.5rem;
-      vertical-align: middle;
-    }
-  }
-
+  // BOUTON QUITTER
   &__leave {
-    padding: 0.3rem 0.75rem;
-    background: transparent;
-    border: 1px solid $border;
-    border-radius: 6px;
-    color: $muted;
-    font-size: 0.8rem;
+    background: #ff5c8a;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 10px;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
     cursor: pointer;
+    box-shadow: 0 3px 0 #d43f6b;
+    transition: all 0.1s;
 
-    &:hover { border-color: #ff5f5f; color: #ff5f5f; }
+    &:hover {
+      background: #ff709a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 0 #d43f6b;
+    }
+
+    &:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #d43f6b;
+    }
   }
 
   &__messages {
     flex: 1;
+    padding: 10px;
     overflow-y: auto;
-    padding: 1rem 1.25rem;
+    background: #fdf6ff;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-
-    @media (min-width: $bp) { grid-area: messages; }
-
-    &::-webkit-scrollbar { width: 4px; }
-    &::-webkit-scrollbar-thumb { background: $border; border-radius: 2px; }
-  }
-
-  &__system {
-    text-align: center;
-    font-size: 0.75rem;
-    color: $muted;
-    font-style: italic;
-  }
-
-  &__msg {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-    max-width: 70%;
-    gap: 0.2rem;
-
-    &--own {
-      align-self: flex-end;
-
-      .chat__bubble { background: $own; border-color: transparent; }
-      .chat__msg-pseudo { display: none; }
-    }
-  }
-
-  &__msg-pseudo {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: $accent;
-    padding: 0 0.25rem;
+    gap: 6px;
+    min-height: 0;
   }
 
   &__bubble {
-    padding: 0.5rem 0.875rem;
-    background: $surface;
-    border: 1px solid $border;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    word-break: break-word;
-  }
-
-  &__time {
-    font-size: 0.7rem;
-    color: $muted;
-    padding: 0 0.25rem;
+    padding: 6px 12px;
+    border-radius: 18px;
+    background: #ffe5ec;
+    font-size: 0.85rem;
+    max-width: 90%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
 
   &__composer {
+    padding: 8px;
     display: flex;
-    gap: 0.5rem;
-    padding: 0.875rem 1.25rem;
-    background: $surface;
-    border-top: 1px solid $border;
-
-    @media (min-width: $bp) { grid-area: composer; }
+    gap: 5px;
+    background: white;
+    border-top: 2px solid #f0f0f0;
   }
 
   &__input {
     flex: 1;
-    padding: 0.5rem 1rem;
-    background: $bg;
-    border: 1px solid $border;
-    border-radius: 20px;
-    color: $text;
-    font-size: 0.9rem;
+    min-width: 0;
+    border-radius: 15px;
+    border: 2px solid #ffd6e0;
+    padding: 6px 12px;
+    font-size: 0.85rem;
     outline: none;
 
-    &:focus { border-color: $accent; }
-    &::placeholder { color: $muted; opacity: 0.6; }
+    &:focus {
+      border-color: #bdb2ff;
+    }
   }
 
   &__send {
-    width: 38px;
-    height: 38px;
-    background: $accent;
-    border: none;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    color: #fff;
-    font-size: 1rem;
+    background: #ffafcc;
+    border: none;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    &:hover { opacity: 0.85; }
-    &:disabled { opacity: 0.4; cursor: not-allowed; }
+    &:hover { transform: scale(1.1); }
   }
+
+  &__time, &__msg-pseudo { font-size: 0.7rem; }
+  &__system { font-size: 0.7rem; text-align: center; color: #aaa; margin: 4px 0; }
 }
