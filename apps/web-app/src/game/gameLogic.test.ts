@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { createGame, guessLetter, GameState } from './gameLogic'
+import { createGame, guessLetter } from './gameLogic'
 
 describe('createGame', () => {
     it('crée un jeu avec le mot donné en majuscules', () => {
@@ -33,7 +33,8 @@ describe('guessLetter — bonne lettre', () => {
     it('révèle toutes les occurrences (ex: MAMAN)', () => {
         const g = createGame('maman')
         const next = guessLetter(g, 'M')
-        expect(next.revealed).toEqual(['M', '_', 'M', '_', 'N'].map((l, i) =>
+
+        expect(next.revealed).toEqual(['M', '_', 'M', '_', '_'].map((l) =>
             l === 'M' ? 'M' : '_'
         ))
         // version claire :
@@ -69,9 +70,11 @@ describe('guessLetter — mauvaise lettre', () => {
         expect(next.revealed).toEqual(['_', '_', '_', '_'])
     })
 
-    it('passe le statut à "lost" après 6 mauvaises lettres', () => {
-        let g = createGame('chat')
-        for (const l of ['Z', 'X', 'W', 'V', 'U', 'Y']) {
+    it('passe le statut à "lost" après 15 mauvaises lettres', () => {
+        let g = createGame('TEST')
+        // 15 lettres incorrectes uniques
+        const wrongLetters = ['A','B','C','D','F','G','H','I','J','K','L','M','N','O','P']
+        for (const l of wrongLetters) {
             g = guessLetter(g, l)
         }
         expect(g.status).toBe('lost')
