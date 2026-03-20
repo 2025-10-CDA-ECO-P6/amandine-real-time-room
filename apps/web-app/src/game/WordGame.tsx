@@ -52,11 +52,14 @@ export function WordGame() {
     useEffect(() => { fetchWord() }, [])
 
     function handleLetter(letter: string) {
-        if (!game) return
-        const wasCorrect = game.word.includes(letter)
+        if (!game || game.status !== 'playing') return
+
         const next = guessLetter(game, letter)
         if (next === game) return
 
+        console.log('letter:', letter, 'wrongLetters after:', next.wrongLetters, 'status:', next.status)
+
+        const wasCorrect = game.word.includes(letter)
         if (next.status === 'won') playSound('won')
         else if (next.status === 'lost') playSound('lost')
         else if (wasCorrect) playSound('correct')
@@ -109,24 +112,23 @@ export function WordGame() {
                 </div>
             </div>
 
-            {game.status === 'playing' && (
-                <div className="word-game__keyboard">
-                    {ALPHABET.map((l) => (
-                        <button
-                            key={l}
-                            onClick={() => handleLetter(l)}
-                            disabled={usedLetters.has(l)}
-                            className={[
-                                'word-game__key',
-                                game.wrongLetters.includes(l) ? 'word-game__key--wrong' : '',
-                                game.revealed.includes(l) ? 'word-game__key--correct' : '',
-                            ].join(' ').trim()}
-                        >
-                            {l}
-                        </button>
-                    ))}
-                </div>
-            )}
+            {/* Clavier toujours présent, désactivé si partie terminée */}
+            <div className="word-game__keyboard">
+                {ALPHABET.map((l) => (
+                    <button
+                        key={l}
+                        onClick={() => handleLetter(l)}
+                        disabled={usedLetters.has(l) || game.status !== 'playing'}
+                        className={[
+                            'word-game__key',
+                            game.wrongLetters.includes(l) ? 'word-game__key--wrong' : '',
+                            game.revealed.includes(l) ? 'word-game__key--correct' : '',
+                        ].join(' ').trim()}
+                    >
+                        {l}
+                    </button>
+                ))}
+            </div>
         </div>
     )
 }

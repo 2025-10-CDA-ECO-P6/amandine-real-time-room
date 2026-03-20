@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import { getWordOfTheDay } from "./wordOfTheDay";
 
 const app = express();
 const httpServer = createServer(app); // Socket.IO a besoin du serveur HTTP natif, pas d'express directement
@@ -45,6 +46,10 @@ app.use((_req, res, next) => {
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
+});
+
+app.get("/word-of-the-day", (_req, res) => {
+  res.json({ word: getWordOfTheDay() });
 });
 
 // --- Logique Socket.IO ---

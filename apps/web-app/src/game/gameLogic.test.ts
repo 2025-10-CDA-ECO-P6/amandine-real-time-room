@@ -71,10 +71,8 @@ describe('guessLetter — mauvaise lettre', () => {
     })
 
     it('passe le statut à "lost" après 15 mauvaises lettres', () => {
-        let g = createGame('TEST')
-        // 15 lettres incorrectes uniques
-        const wrongLetters = ['A','B','C','D','F','G','H','I','J','K','L','M','N','O','P']
-        for (const l of wrongLetters) {
+        let g = createGame('chat')
+        for (const l of ['Z', 'X', 'W', 'V', 'U', 'Y', 'S', 'R', 'Q', 'P', 'O', 'N', 'M', 'L', 'K']) {
             g = guessLetter(g, l)
         }
         expect(g.status).toBe('lost')

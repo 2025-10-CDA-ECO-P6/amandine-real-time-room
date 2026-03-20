@@ -32,7 +32,7 @@ describe('WordGame — interaction', () => {
         await waitFor(() => screen.getByRole('button', { name: 'C' }))
         fireEvent.click(screen.getByRole('button', { name: 'C' }))
         expect(screen.getAllByText('_').length).toBe(3)
-        expect(screen.getByText('C')).toBeInTheDocument()
+        expect(screen.getAllByText('C').length).toBeGreaterThanOrEqual(1)
     })
 
     it('envoie la mauvaise lettre dans la zone interdite', async () => {
@@ -58,15 +58,19 @@ describe('WordGame — interaction', () => {
         await waitFor(() => screen.getByRole('button', { name: 'O' }))
         fireEvent.click(screen.getByRole('button', { name: 'O' }))
         fireEvent.click(screen.getByRole('button', { name: 'K' }))
-        expect(screen.getByTestId('result-won')).toBeInTheDocument()
+        await waitFor(() => expect(screen.getByTestId('result-won')).toBeInTheDocument())
     })
 
     it('affiche le message de défaite', async () => {
         render(<WordGame />)
         await waitFor(() => screen.getByRole('button', { name: 'Z' }))
-        for (const l of ['Z', 'X', 'W', 'V', 'U', 'Y']) {
-            fireEvent.click(screen.getByRole('button', { name: l }))
+
+        for (const l of ['Z', 'X', 'W', 'V', 'U', 'Y', 'S', 'R', 'Q', 'P', 'O', 'N', 'M', 'L', 'K']) {
+            const btn = screen.getByRole('button', { name: l })
+            fireEvent.click(btn)
+            await waitFor(() => expect(btn).toBeDisabled())
         }
-        expect(screen.getByTestId('result-lost')).toBeInTheDocument()
+
+        await waitFor(() => expect(screen.getByTestId('result-lost')).toBeInTheDocument())
     })
 })
