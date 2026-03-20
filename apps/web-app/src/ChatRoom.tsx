@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { type Socket } from 'socket.io-client'
+import { WordGame } from './game/WordGame'
 
 interface Message {
     id: string
@@ -36,7 +37,7 @@ export function ChatRoom({ socket, pseudo, room, onLeave }: Props) {
                     system,
                     pseudo: msgPseudo,
                     own,
-                    time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+                    time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
                 },
             ])
         }
@@ -58,16 +59,10 @@ export function ChatRoom({ socket, pseudo, room, onLeave }: Props) {
 
     return (
         <div className="chat">
-            {/*ZONE JEU :*/}
             <aside className="chat__game">
-                <div style={{ textAlign: 'center' }}>
-                    <span style={{ fontSize: '5rem', display: 'block' }}>🎮</span>
-                    <h2 style={{ fontSize: '2rem', color: '#555' }}>ZONE DE JEU</h2>
-                    <p>Le futur jeu s'affichera ici en grand !</p>
-                </div>
+                <WordGame />
             </aside>
 
-            {/*ZONE CHAT :*/}
             <div className="chat__container">
                 <header className="chat__header">
                     <span>Salon : {room}</span>

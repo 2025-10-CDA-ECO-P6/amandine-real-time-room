@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import { getWordOfTheDay } from "./wordOfTheDay";
 
 const app = express();
 const httpServer = createServer(app); // Socket.IO a besoin du serveur HTTP natif, pas d'express directement
@@ -34,10 +35,21 @@ app.use(
 
 app.use(express.json());
 
+// CORS manuel pour les routes HTTP (nécessaire si front et back sur des origines différentes)
+app.use((_req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL || "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  next();
+});
+
 // --- Routes HTTP ---
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
+});
+
+app.get("/word-of-the-day", (_req, res) => {
+  res.json({ word: getWordOfTheDay() });
 });
 
 // --- Logique Socket.IO ---
