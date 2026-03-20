@@ -34,6 +34,13 @@ app.use(
 
 app.use(express.json());
 
+// CORS manuel pour les routes HTTP (nécessaire si front et back sur des origines différentes)
+app.use((_req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL || "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  next();
+});
+
 // --- Routes HTTP ---
 
 app.get("/health", (_req, res) => {

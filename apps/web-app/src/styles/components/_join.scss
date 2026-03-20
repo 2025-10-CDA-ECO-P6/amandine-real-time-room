@@ -34,6 +34,32 @@
     font-size: 1.1rem;
   }
 
+  &__rules {
+    background: #fff9e5;
+    border-radius: 15px;
+    padding: 1rem;
+    border: 2px solid #ffd1dc;
+    font-size: 0.95rem;
+    color: #555;
+    cursor: pointer;
+
+    summary {
+      font-weight: bold;
+      color: #FF85A2;
+      list-style: none;
+      &::-webkit-details-marker { display: none; }
+    }
+  }
+
+  &__rules-list {
+    margin-top: 0.75rem;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    li { line-height: 1.5; }
+  }
+
   &__label {
     font-size: 1rem;
     color: #A2D2FF;
@@ -64,9 +90,9 @@
     font-size: 1.3rem;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 6px 0 darken(#FF85A2, 10%);
 
     &:hover { transform: translateY(-2px); }
-    &:active { transform: translateY(4px); box-shadow: none; }
+    &:active { transform: translateY(4px); }
+    &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   }
 }
